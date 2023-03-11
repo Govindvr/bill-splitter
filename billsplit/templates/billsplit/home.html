@@ -1,0 +1,13 @@
+{% extends "billsplit/index.html" %}
+
+{% block title %}home{% endblock %}
+
+
+{% block body %}
+<h1>Home</h1>
+{% if user.is_authenticated %}
+    <h2>welcome {{ user.username }}</h2>
+{% else %}
+    <h2>Not logged in</h2>
+{% endif %}
+{% endblock %}

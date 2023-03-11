@@ -1,0 +1,24 @@
+{% extends "billsplit/index.html" %}
+
+{% block title %}register{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="limit">
+    <div class="login-container">
+        <div class="bb-login">
+           <H2 >Welcome !</H2><h5>Enter your details to register.</h5>
+        <!--INSERT FORM HERE-->
+          <h1> Create New Account </h1>
+          <form method="POST" >
+              {% csrf_token %}
+              {{form|crispy}}
+              <div class="text-center">
+                <button type="submit" class="btn btn-dark">Register</button>
+              </div>
+          </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

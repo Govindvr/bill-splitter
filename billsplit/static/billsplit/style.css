@@ -1,0 +1,27 @@
+body {
+    color: #333333;
+    margin-top: 0rem;
+  }
+
+.limit {
+    width: 50%;
+    margin: 0 auto;
+    /* height: 60%; */
+
+}
+.login-container {
+    width: 100%;
+    margin-top: 13%;
+    min-height: 70vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border:1px solid black;
+    border-color: black;
+ 
+    border-radius: 2%;
+    
+}
