@@ -28,7 +28,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, f'Welcome {username}!')
-            return redirect('app-home')
+            return redirect('app-dashboard')
         else:
             messages.warning(request, 'Username OR password is incorrect')
             return redirect('login')
