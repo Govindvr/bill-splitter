@@ -12,10 +12,52 @@
 </head>
 
 <body>
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <!-- Navbar content -->
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#">Groups</a>
+          </li>
+
+        </ul>
+        {% if user.is_authenticated %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{ user.username }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          </ul>
+        {% else %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
   {% if messages %}
     {% for message in messages %}
-      <div class="alert  alert-{{message.tags}}">
+      <div class="alert  alert-{{message.tags}} alert-dismissible fade show" role="alert">
         {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     {% endfor %}
   {% endif %}
