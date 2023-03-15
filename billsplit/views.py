@@ -59,7 +59,7 @@ def group(request, group_id):
     context = {
         'group': group,
         'members': members,
-        'users': users
+        'users': users,
     }
     return render(request, 'billsplit/group_details.html', context=context)
 
@@ -78,4 +78,36 @@ def remove_member(request, group_id, member_id):
     member = User.objects.get(id=member_id)
     groupmember = GroupMember.objects.get(group=group, member=member)
     groupmember.delete()
+    return redirect('app-group', group_id=group_id)
+
+def add_split_member(request, group_id, owner_id):
+    if request.method == "POST":
+        members = request.POST.getlist('members')
+        amount = request.POST['amount']
+        name = request.POST['name']
+        participants = []
+        for member in members:
+            participants.append(User.objects.get(id=member))
+        split_amount = float(amount)/len(participants)
+    context = {
+        'amount': amount,
+        'participants': participants,
+        'split_amount': split_amount,
+        'group_id': group_id,
+        'owner_id': owner_id,
+        'name': name,
+
+    }    
+    return render(request, 'billsplit/add_bill.html', context=context)
+
+def add_bill(request, group_id, owner_id):
+    if request.method == "POST":
+        amount = request.POST.get('amount')
+        description = request.POST.get('name')
+        participants = request.POST.getlist('participants')
+        for participant in participants:
+            print(participant)
+        print(amount)
+        print(description)
+        print(participants)
     return redirect('app-group', group_id=group_id)

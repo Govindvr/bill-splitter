@@ -17,6 +17,31 @@
                     <h1 class="text-center">Split</h1>
                    
                 </div>
+                <div class="col-12 text-center">
+                  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Add Bill
+                  </button>
+                  <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                      {% if group.owner.username == request.user.username %}
+
+                        <form action="{% url 'app-add-split-member' group_id=group.id owner_id=group.owner.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="text" class="form-control" id="name" name="name" aria-describedby="help" placeholder="Enter the Bill Name">
+                            <input type="text" class="form-control" id="amount" name="amount" aria-describedby="help" placeholder="Enter the Amount">
+
+                            <select name="members" id="members" multiple>
+                                {% for member in members %}                          
+                                    <option value="{{ member.id }}">{{ member.username }}</option>                              
+                                {% endfor %}
+                            
+                            </select>
+                            <input type="submit" class="form-control" value="Add Bill">
+                        </form>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
             </div>
             
             <div class="row">
@@ -123,5 +148,7 @@
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
 <script>
     new MultiSelectTag('users')  // id
+    new MultiSelectTag('members')  // id
+
 </script>
 {% endblock %}

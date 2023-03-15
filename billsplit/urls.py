@@ -8,4 +8,6 @@ urlpatterns = [
     path('group/<int:group_id>/', views.group, name='app-group'),
     path('add_members/<int:group_id>/', views.add_members, name='app-add-members'),
     path('remove_member/<int:group_id>/<int:member_id>/', views.remove_member, name='app-remove-member'),
+    path('add_split_member/<int:group_id>/<int:owner_id>', views.add_split_member, name='app-add-split-member'),
+    path('add_bill/<int:group_id>/<int:owner_id>', views.add_bill, name='app-add-bill'),
 ]

@@ -1,0 +1,38 @@
+{% extends "billsplit/index.html" %}
+
+{% block title %}add bill{% endblock %}
+
+{% block body %}
+<div class="limit">
+    <div class="login-container">
+        <div class="md-8 text-center">
+            <h2>₹{{amount}}</h2>
+            <H2 >Welcome !</H2><h5 >Add Amount</h5><br>
+            
+        <!--INSERT FORM HERE-->
+            
+            <form action="{% url 'app-add-bill' group_id=group_id owner_id=owner_id %}" method="POST" >
+                {% csrf_token %}
+               {% for member in participants %}
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-6 col-form-label"><h4>{{ member.username }}</h4></label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control rounded-pill w-50 align-self-end" id="{{ member.username }}" value="{{ split_amount }}">
+                    </div>
+                </div>
+
+               {% endfor %}
+               <input type="hidden" name="amount" value="{{ amount }}">
+               <input type="hidden" name="name" value="{{ name }}">
+               <input type="hidden" name="participants" value="{{ participants }}">
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-dark">Add Bill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
