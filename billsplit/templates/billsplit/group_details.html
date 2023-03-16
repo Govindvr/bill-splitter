@@ -18,9 +18,13 @@
                    
                 </div>
                 <div class="col-12 text-center">
-                  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Add Bill
-                  </button>
+                  {% if group.owner.username == request.user.username %}
+
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      Add Bill
+                    </button>
+                  {% endif %}
+
                   <div class="collapse" id="collapseExample">
                     <div class="card card-body">
                       {% if group.owner.username == request.user.username %}
@@ -28,9 +32,9 @@
                         <form action="{% url 'app-add-split-member' group_id=group.id owner_id=group.owner.id %}" method="post">
                             {% csrf_token %}
                             <input type="text" class="form-control" id="name" name="name" aria-describedby="help" placeholder="Enter the Bill Name">
-                            <input type="text" class="form-control" id="amount" name="amount" aria-describedby="help" placeholder="Enter the Amount">
+                            <input type="text" class="form-control" id="amount" required="True" name="amount" aria-describedby="help" placeholder="Enter the Amount">
 
-                            <select name="members" id="members" multiple>
+                            <select name="members" id="members" required multiple>
                                 {% for member in members %}                          
                                     <option value="{{ member.id }}">{{ member.username }}</option>                              
                                 {% endfor %}
@@ -50,25 +54,38 @@
                 <table class="table table-hover">
                     <colgroup>
                         <col span="1" style="width: 10%;">
-                        <col span="1" style="width: 70%;">
+                        <col span="1" style="width: 40%;">
+                        <col span="1" style="width: 30%;">
                         <col span="1" style="width: 20%;">
+
     
                      </colgroup>
                     <thead>
                       <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Amount</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Members</th>
+                        <th scope="col">View</th>
+                        <th scope="col">Status</th>
+
+
                       </tr>
                     </thead>
                     <tbody>
-                      <!-- {% for group in groups %}
+                      {% for bill in bills %}
                         <tr>
-                          <th scope="row">1</th>
-                          <td>{{ group.name }}</td>
-                          <td>{{ group.count }}</td>
+                          <th scope="row">{{ forloop.counter }}</th>
+                          <td><h6>{{ bill.bill_amount }}</h6></td>
+                          <td>{{ bill.bill_name }}</td>
+                          <td><a href="{% url 'app-bill-details' bill_id=bill.id %}"><span class="badge bg-success"><i class="fa fa-eye"></i>View</span></a></td>
+                          {% if not bill.is_active  %}
+                            <td><span class="badge bg-success">Completly Paid</span></td>
+                          {% else %}
+                            <td><span class="badge bg-danger">Unpaid</span></td>
+                          {% endif %}
+
                         </tr>
-                      {% endfor %} -->
+                      {% endfor %}
                     </tbody>
                   </table>
                 </div>

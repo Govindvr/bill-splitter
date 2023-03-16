@@ -1,0 +1,53 @@
+{% extends "billsplit/index.html" %}
+
+{% block title %}billDetails{% endblock %}
+
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center">Bill Details</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-hover">
+                    <colgroup>
+                        <col span="1" style="width: 10%;">
+                        <col span="1" style="width: 50%;">
+                        <col span="1" style="width: 20%;">
+                        <col span="1" style="width: 20%;">
+
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Amount</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for participant in billparticipants %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ participant.participant.username }}</td>
+                            <td>{{ participant.amount }}</td>
+                            {% if participant.paid == False %}
+                                <td><a href="{% url 'app-mark-as-paid' bill_id=bill.id participant_id=participant.participant.id %}"><span class="badge bg-warning">Mark as Paid</span></a></td>
+                            {% else %}
+                                <td><span class="badge bg-success">Paid</span></td>
+                            {% endif %}
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

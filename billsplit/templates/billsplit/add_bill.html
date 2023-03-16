@@ -17,14 +17,14 @@
                 <div class="mb-3 row">
                     <label for="inputPassword" class="col-sm-6 col-form-label"><h4>{{ member.username }}</h4></label>
                     <div class="col-sm-6">
-                      <input type="text" class="form-control rounded-pill w-50 align-self-end" id="{{ member.username }}" value="{{ split_amount }}">
+                      <input type="text" class="form-control rounded-pill w-50 align-self-end" id="{{ member.id }}" name="{{ member.id }}" value="{{ split_amount }}">
                     </div>
                 </div>
 
                {% endfor %}
                <input type="hidden" name="amount" value="{{ amount }}">
                <input type="hidden" name="name" value="{{ name }}">
-               <input type="hidden" name="participants" value="{{ participants }}">
+               <input type="hidden" name="participants" value="{{ serial_members }}">
 
 
                 <div class="text-center">
