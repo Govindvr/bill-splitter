@@ -71,14 +71,50 @@
                 
                 <div class="col-md-12">
                     <h1>Amount to be Received</h1>
-                    <h2 class="text-success">Rs 5000</h2>
+                    <h2 class="text-success">Rs {{ amoubt_owed }}</h2>
                 </div>
                 <br><br>
                 <div class="col-md-12">
                     <h1>Amount in Debt</h1>
-                    <h2 class="text-danger">Rs 5000</h2>
+                    <h2 class="text-danger">Rs {{ debt_amount }}</h2>
                 </div>
 
+                <div class="col-12 align-self-center">
+                   
+                  <table class="table table-hover">
+                      <colgroup>
+                          <col span="1" style="width: 10%;">
+                          <col span="1" style="width: 70%;">
+                          <col span="1" style="width: 20%;">
+      
+                       </colgroup>
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- {% for member in members %}
+                          <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ member.username }}</td>
+                            {% if member.username == group.owner.username %}
+                              <td></td>
+                            {% else %}
+                            <td>
+                            {% if group.owner.username == request.user.username %}
+                              <a href="{% url 'app-remove-member' group_id=group.id member_id=member.id %}"> remove</a>
+                            {% endif %}
+                            </td>
+                            {% endif %}
+  
+                          </tr>
+                        {% endfor %} -->
+                      </tbody>
+                    </table>
+                  </div>
             </div>
         </div>
       </div>

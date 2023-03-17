@@ -1,0 +1,20 @@
+{% extends "billsplit/index.html" %}
+
+{% block title %}{{request.user.username}}{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-4">
+        <h1 class="text-center">My Profile</h1>
+        <div class="text-center">
+            <img class="rounded-circle " src="{{ user.profile.image.url }}" alt="">
+        </div>
+        <h3 class="text-center">{{ user.username }}</h3>
+        <h3 class="text-center">{{ user.email }}</h3>
+    </div>
+    <div class="col-8">
+        <h1 class="text-center">My Profile</h1>
+    </div>
+
+</div>
+{% endblock %}

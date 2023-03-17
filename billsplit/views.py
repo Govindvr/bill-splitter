@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.db import connection
 from django.http import HttpResponse
 from django.views.decorators.cache import never_cache
+from django.contrib import messages
+
 
 # Create your views here.
 def dictfetchall(cursor):
@@ -21,23 +23,47 @@ def home(request):
 
 @login_required(redirect_field_name='login', login_url='login')
 def dashboard(request):
+
     cursor = connection.cursor()
-    cursor.execute("SELECT billsplit_group.id, billsplit_group.name, billsplit_group.owner_id, COUNT(billsplit_groupmember.member_id) AS member_count FROM billsplit_group LEFT JOIN billsplit_groupmember ON billsplit_group.id = billsplit_groupmember.group_id WHERE billsplit_group.owner_id = %s GROUP BY billsplit_group.id, billsplit_group.name, billsplit_group.owner_id", [request.user.id])
+    cursor.execute("""SELECT billsplit_group.id, billsplit_group.name, billsplit_group.owner_id, COUNT(billsplit_groupmember.member_id) AS member_count 
+                    FROM billsplit_group LEFT JOIN billsplit_groupmember ON billsplit_group.id = billsplit_groupmember.group_id 
+                    WHERE billsplit_group.owner_id = %s GROUP BY billsplit_group.id, billsplit_group.name, billsplit_group.owner_id""", [request.user.id])
     groups = dictfetchall(cursor)
 
     cursor = connection.cursor()
-    cursor.execute("SELECT billsplit_group.id, billsplit_group.name, billsplit_group.owner_id, COUNT(billsplit_groupmember.member_id) AS member_count FROM billsplit_group LEFT JOIN billsplit_groupmember ON billsplit_group.id = billsplit_groupmember.group_id WHERE billsplit_group.owner_id != %s GROUP BY billsplit_group.id, billsplit_group.name, billsplit_group.owner_id", [request.user.id])
+    cursor.execute("""SELECT billsplit_group.id, billsplit_group.name, billsplit_group.owner_id, COUNT(billsplit_groupmember.member_id) AS member_count 
+                    FROM billsplit_group LEFT JOIN billsplit_groupmember ON billsplit_group.id = billsplit_groupmember.group_id 
+                    WHERE billsplit_group.owner_id != %s GROUP BY billsplit_group.id, billsplit_group.name, billsplit_group.owner_id""", [request.user.id])
     othetgroups = dictfetchall(cursor)
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT SUM(amount) AS amount from billsplit_billparticipant WHERE participant_id = %s AND paid=False", [request.user.id])
+    debt_amount = cursor.fetchone()[0]
+
+    if debt_amount is None:
+        debt_amount = 0
+
+    cursor = connection.cursor()
+    cursor.execute("""SELECT SUM(amount) AS amount from billsplit_billparticipant,billsplit_bill 
+                    WHERE billsplit_bill.id = billsplit_billparticipant.bill_id 
+                    AND billsplit_bill.bill_owner_id = %s AND paid=False""", [ request.user.id])
+    amoubt_owed = cursor.fetchone()[0]
+
 
     context = {
         'groups': groups,
-        'othergroups': othetgroups
+        'othergroups': othetgroups,
+        'debt_amount': debt_amount,
+        'amoubt_owed': amoubt_owed
     }
     return render(request, 'billsplit/dashboard.html',context=context)
 
 def add_group(request):
     if request.method == "POST":
         groupname = request.POST['groupname']
+        if groupname == "":
+            messages.warning(request, 'Group name is required')
+            return redirect('app-dashboard')
         group = Group.objects.create(name=groupname, owner=request.user)
         group.save()
         groupmember = GroupMember.objects.create(group=group, member=request.user)

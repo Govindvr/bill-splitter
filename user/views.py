@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -38,3 +39,8 @@ def logout_view(request):
     logout(request)
     messages.warning(request, 'You have been logged out!')
     return redirect('app-home')
+
+@login_required(redirect_field_name='login', login_url='login')
+def profile(request):
+    
+    return render(request, 'user/profile.html')
