@@ -34,7 +34,8 @@
                         {% for participant in billparticipants %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ participant.participant.username }}</td>
+                            <td><img src="{{participant.participant.profile.image.url}}" class="rounded-circle"
+                                height="22" alt="Avatar" loading="lazy" />{{ participant.participant.username }}</td>
                             <td>{{ participant.amount }}</td>
                             {% if participant.paid == False %}
                                 <td><a href="{% url 'app-mark-as-paid' bill_id=bill.id participant_id=participant.participant.id %}"><span class="badge bg-warning">Mark as Paid</span></a></td>

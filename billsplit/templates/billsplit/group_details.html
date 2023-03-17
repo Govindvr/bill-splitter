@@ -138,7 +138,8 @@
                       {% for member in members %}
                         <tr>
                           <th scope="row">{{ forloop.counter }}</th>
-                          <td>{{ member.username }}</td>
+                          <td><img src="{{member.profile.image.url}}" class="rounded-circle"
+                            height="22" alt="Avatar" loading="lazy" /> {{ member.username }}</td>
                           {% if member.username == group.owner.username %}
                             <td></td>
                           {% else %}
