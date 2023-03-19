@@ -80,28 +80,30 @@ WSGI_APPLICATION = "split_bill.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_URL'),
 
-        'NAME': 'billsplit',
+if 'DB_URL' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv('DB_URL'),
 
-        'USER': os.getenv('DB_USER'),
+            'NAME': 'billsplit',
 
-        'PASSWORD': os.getenv('DB_PASSWORD'),
+            'USER': os.getenv('DB_USER'),
 
-        'HOST': 'localhost',
+            'PASSWORD': os.getenv('DB_PASSWORD'),
 
-        'PORT': '5432',
+            'HOST': 'localhost',
+
+            'PORT': '5432',
+        }
+    }
+else:
+    DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
