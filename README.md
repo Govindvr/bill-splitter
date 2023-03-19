@@ -22,9 +22,13 @@ To Run the app
 python manage.py runserver
 ```
 The app will be availiable on http://localhost:8000/
+
+## Demo Video 
+https://www.loom.com/share/0f9b3c18c272450b93f048d0f3b1d6a1
 <br>
 <br>
-### Usage
+
+## Usage
 
 A bill-splitting app where users can split bills among other users. The application have features like
 
@@ -39,16 +43,20 @@ A bill-splitting app where users can split bills among other users. The applicat
 · There would be a summary screen which lists the amount the user owes to everyone based on the bill-splitting activity till now. Users can settle bills, and this would start over again.
 
 
+<br>
+<br>
 
-### Solutions and Choices made
+## Solutions and Choices made
 
 · The application is built using Django and Django Rest Framework.
 
 · The frontend is built using HTML, CSS, Bootstrap and Javascript.
 
 . The database used is `Postgres`.
+<br>
+<br>
 
-### Database Design
+## Database Design
 
 The database consists of 6 models:
 
