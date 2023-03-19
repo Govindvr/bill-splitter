@@ -109,6 +109,7 @@ def remove_member(request, group_id, member_id):
     groupmember.delete()
     return redirect('app-group', group_id=group_id)
 
+@login_required(redirect_field_name='login', login_url='login')
 @never_cache
 def add_split_member(request, group_id, owner_id):
     response = HttpResponse()
@@ -159,6 +160,7 @@ def add_bill(request, group_id, owner_id):
             billparticipant.save()
     return redirect('app-group', group_id=group_id)
 
+@login_required(redirect_field_name='login', login_url='login')
 def bill_details(request, bill_id):
     bill = Bill.objects.get(id=bill_id)
     billparticipants = BillParticipant.objects.filter(bill=bill)

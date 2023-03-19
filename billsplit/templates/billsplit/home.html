@@ -4,10 +4,38 @@
 
 
 {% block body %}
-<h1>Home</h1>
-{% if user.is_authenticated %}
-    <h2>welcome {{ user.username }}</h2>
-{% else %}
-    <h2>Not logged in</h2>
-{% endif %}
+<section class="">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <br><br><br><br><br>
+
+                <h1>Welcome to the Bill Splitting App!</h1>
+
+                <h6>This app makes it easy to split bills between friends and family. With just a few clicks, you can create a new group, add members, and start adding bills to be split.</h6>
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-7 text-start">
+                        <p>
+                            Getting started is easy: <br>
+                            <br>
+                            1. Sign up for an account or log in to your existing account. <br>
+                            2. Create a new group and invite your friends to join. <br>
+                            3. Add bills to the group and assign them to the members who participated. <br>
+                            4. Sit back and let the app calculate who owes what. <br>
+        
+                        </p>
+                    </div>
+                </div>
+                <h6>With the Bill Splitting App, there's no more guesswork or arguments over who owes what. Everything is calculated automatically, so you can focus on enjoying time with your friends and family.</h6>
+               <br> <br>
+               {% if user.is_authenticated %}
+               <h5>Ready to get started? Open <a href="{% url 'app-dashboard' %}">Dashboard</a> now and start splitting those bills!</h5>
+               {% else %}
+                <h5>Ready to get started? <a href="{% url 'register' %}"> Sign up</a> or<a href="{% url 'login' %}"> log in</a> now and start splitting those bills!</h5>
+               {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

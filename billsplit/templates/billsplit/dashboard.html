@@ -18,7 +18,7 @@
                     <form action= "{% url 'app-add-group' %}"  method="POST">
                       {% csrf_token %}
                       <input type="text" class="form-control" id="content" name="groupname" placeholder="Group Name">
-                      <input type="Submit" class="form-control" value="Add Group">
+                      <input type="Submit" class="form-control btn btn-dark" value="Add Group">
                   </form>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="col-12 align-self-center">
-                   
+<!--                    
                   <table class="table table-hover">
                       <colgroup>
                           <col span="1" style="width: 10%;">
@@ -96,7 +96,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <!-- {% for member in members %}
+                        {% for member in members %}
                           <tr>
                             <th scope="row">{{ forloop.counter }}</th>
                             <td>{{ member.username }}</td>
@@ -111,9 +111,9 @@
                             {% endif %}
   
                           </tr>
-                        {% endfor %} -->
+                        {% endfor %}
                       </tbody>
-                    </table>
+                    </table> -->
                   </div>
             </div>
         </div>

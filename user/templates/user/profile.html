@@ -34,7 +34,67 @@
     </div>
     <div class="col-lg-9">
         <br><br>
-        <h1 class="text-center">My Profile</h1>
+        <h1 class="text-center">Summary</h1>
+        <br><br>
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Amount to be Received</h2>
+
+                <table class="table table-hover">
+                    <colgroup>
+                        <col span="1" style="width: 10%;">
+                        <col span="1" style="width: 70%;">
+                        <col span="1" style="width: 20%;">
+    
+                     </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for member in amount_owed %}
+                        <tr>
+                          <th scope="row">{{ forloop.counter }}</th>
+                          <td>{{ member.username }}</td>
+                            <td class="text-success">{{ member.amount_owed }}</td>
+
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center">Amount in Debt</h2>
+                <table class="table table-hover">
+                    <colgroup>
+                        <col span="1" style="width: 10%;">
+                        <col span="1" style="width: 70%;">
+                        <col span="1" style="width: 20%;">
+    
+                     </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for member in amount_owed_to %}
+                        <tr>
+                          <th scope="row">{{ forloop.counter }}</th>
+                          <td>{{ member.username }}</td>
+                            <td class="text-danger">{{ member.amount_owed_to }}</td>
+
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
     </div>
 
 </div>

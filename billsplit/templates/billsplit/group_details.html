@@ -31,16 +31,16 @@
 
                         <form action="{% url 'app-add-split-member' group_id=group.id owner_id=group.owner.id %}" method="post">
                             {% csrf_token %}
-                            <input type="text" class="form-control" id="name" name="name" aria-describedby="help" placeholder="Enter the Bill Name">
-                            <input type="text" class="form-control" id="amount" required="True" name="amount" aria-describedby="help" placeholder="Enter the Amount">
-
+                            <input type="text" class="form-control form-control-lg text-center" id="amount" required="True" name="amount" aria-describedby="inputGroup-sizing-lg" placeholder="Enter the Amount">
+                            <input type="text" class="form-control form-control-sm text-center" id="name" name="name" aria-describedby="help" placeholder="Enter the Bill Name">
+                            <label for="members"> Add Members</label>
                             <select name="members" id="members" required multiple>
                                 {% for member in members %}                          
                                     <option value="{{ member.id }}">{{ member.username }}</option>                              
                                 {% endfor %}
                             
                             </select>
-                            <input type="submit" class="form-control" value="Add Bill">
+                            <input type="submit" class="form-control btn btn-dark" value="Add Bill">
                         </form>
                       {% endif %}
                     </div>
@@ -111,7 +111,7 @@
                                 {% endfor %}
                             
                             </select>
-                            <input type="submit" class="form-control" value="Add Members">
+                            <input type="submit" class="form-control btn btn-dark" value="Add Members">
                         </form>
                     {% endif %}
                 </div>
@@ -141,7 +141,7 @@
                           <td><img src="{{member.profile.image.url}}" class="rounded-circle"
                             height="22" alt="Avatar" loading="lazy" /> {{ member.username }}</td>
                           {% if member.username == group.owner.username %}
-                            <td></td>
+                            <td>(owner)</td>
                           {% else %}
                           <td>
                           {% if group.owner.username == request.user.username %}
@@ -165,8 +165,14 @@
 
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
 <script>
-    new MultiSelectTag('users')  // id
-    new MultiSelectTag('members')  // id
+    new MultiSelectTag('users',{
+      rounded: true,    // default true
+      shadow: true 
+    })  // id
+    new MultiSelectTag('members',{
+      rounded: true,    // default true
+      shadow: true 
+    })  // id
 
 </script>
 {% endblock %}
